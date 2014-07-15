@@ -1,16 +1,9 @@
 require 'thin'
 require 'em-websocket'
 require 'sinatra/base'
-require 'digest'
-require 'base64'
-require 'json'
+
 
 def uid(ws)
-	#for complex looking uids :D
-	#sha1 = Digest::SHA256.new
-	#Base64.encode64(sha1.digest ws.object_id.to_s)
-
-	#simpler integer uids
 	return ws.object_id
 end
 
@@ -44,12 +37,9 @@ EM.run do
 		ws.onclose do 
 			opp = @opponents[uid(ws)]
 			opp['socket'].send 'message: Opponent disconnected. Close the socket to bugger off.'
-
-			puts JSON.pretty_generate @opponents
 			oppid = opp['oppid']
 			@opponents.delete oppid
 			@opponents.delete uid(ws)		
-			puts JSON.pretty_generate @opponents
 		end
 
 		ws.onmessage do |msg|
