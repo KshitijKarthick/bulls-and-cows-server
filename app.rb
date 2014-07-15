@@ -12,6 +12,9 @@ EM.run do
 		get '/' do
 			erb :index
 		end
+		not_found do
+ 			 erb :index
+		end
 	end
 
 	@opponents = Hash.new(nil)
@@ -52,4 +55,7 @@ EM.run do
 	end
 
 	App.run! :port => 3000
+end
+not_found do
+  halt 404, 'page not found'
 end
