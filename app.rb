@@ -56,6 +56,3 @@ EM.run do
 
 	App.run! :port => 3000
 end
-not_found do
-  halt 404, 'page not found'
-end
